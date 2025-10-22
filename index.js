@@ -2,11 +2,15 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Example URL: /pick/bronze33/silver33/gold34
+app.get('/', (req, res) => {
+  res.json({
+    message: '🎯 Prize Picker API is running!',
+    example: '/pick/bronze33/silver33/gold34'
+  });
+});
+
 app.get('/pick/:prizes', (req, res) => {
   const input = req.params.prizes;
-
-  // Parse input like bronze33/silver33/gold34
   const prizes = input.split('/').map(p => {
     const match = p.match(/([a-zA-Z]+)(\d+)%?/);
     if (!match) return null;
@@ -34,3 +38,5 @@ app.get('/pick/:prizes', (req, res) => {
 });
 
 app.listen(PORT, () => console.log(`🎯 API running on port ${PORT}`));
+
+
